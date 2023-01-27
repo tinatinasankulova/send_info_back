@@ -3,7 +3,7 @@ import style from "./Login.module.css";
 import Button from "./ui/Button";
 import Card from "./ui/Card";
 
-const Login = () => {
+const Login = (props) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -80,8 +80,12 @@ const Login = () => {
       email: email,
       password: (password.split('').reverse().join('') + password[0] + password[1])
     }
+    props.onGet(data)
     
-    console.log(data);
+    setName('')
+    setEmail('')
+    setPassword('')
+    setFormIsValid(false)
   
   
   };
@@ -95,9 +99,9 @@ const Login = () => {
             type="text"
             id="name"
             name="name"
-            onChange={(e) => nameChangeHandler(e)}
+            onChange={ nameChangeHandler}
             value={name}
-            onBlur={(e) => blurHandler(e)}
+            onBlur={ blurHandler}
           />
           {(nameIsValid && errorName) && (
             <label style={{ color: "red" }}>{errorName}</label>
@@ -108,9 +112,9 @@ const Login = () => {
           <input 
           type="email" 
           name="email"
-          onChange={(e) => emailChangeHandler(e)} 
+          onChange={ emailChangeHandler} 
           value={email}
-          onBlur={(e) => blurHandler(e) }
+          onBlur={blurHandler }
           />
           {(emailIsValid && errorEmail) && (
             <label style={{ color: "red" }}>{errorEmail}</label>
@@ -122,9 +126,9 @@ const Login = () => {
             type="password"
             id="password"
             name="password"
-            onChange={(e) => passwordChangeHandler(e)}
+            onChange={ passwordChangeHandler}
             value={password}
-            onBlur={(e) => blurHandler(e) }
+            onBlur={ blurHandler }
           />
           {(passwordIsValid && errorPassword) && (
             <label style={{ color: "red" }}>{errorPassword}</label>
